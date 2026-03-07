@@ -1,5 +1,6 @@
 package com.finix.servicesimpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ public class PortfolioServiceImpl implements PortfolioService{
 	public PortfolioDTO add(Long id, PortfolioEntity portfolio) {
 		Optional<UserEntity> user = this.userRepository.findById(id);
 		if(user.isPresent()) {
-			this.portfolioRepository.save(portfolio);
+			portfolio.setCreated_at(LocalDateTime.now());
 			user.get().addPortfolio(portfolio);
 			portfolio.setUser(user.get());
 			this.portfolioRepository.save(portfolio);

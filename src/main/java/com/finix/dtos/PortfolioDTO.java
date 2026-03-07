@@ -3,33 +3,39 @@ package com.finix.dtos;
 import java.time.LocalDateTime;
 
 import com.finix.entities.PortfolioEntity;
-import com.finix.entities.UserEntity;
-
 
 
 public class PortfolioDTO {
-	
+
 	private Long id;
-	
-	private UserEntity user;
-	
+
 	private String portfolioName;
-	
+
+	private String userName;
+
 	private String currency;
-	
+
 	private double cashBalance;
-	
+	private LocalDateTime created_at;
+
 	public static PortfolioDTO toDTO(PortfolioEntity portfolio) {
 		PortfolioDTO portfolioDTO = new PortfolioDTO();
 		portfolioDTO.setId(portfolio.getId());
 		portfolioDTO.setPortfolioName(portfolio.getPortfolioName());
+		portfolioDTO.setCreated_at(portfolio.getCreated_at());
 		portfolioDTO.setCurrency(portfolio.getCurrency());
 		portfolioDTO.setCashBalance(portfolio.getCashBalance());
+		portfolioDTO.setUserName(portfolio.getUser().getUsername());
 		return portfolioDTO;
 	}
-	
-	
-	private LocalDateTime created_at;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public Long getId() {
 		return id;
@@ -37,14 +43,6 @@ public class PortfolioDTO {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
 	}
 
 	public String getPortfolioName() {
@@ -78,6 +76,5 @@ public class PortfolioDTO {
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-	
-	
+
 }
