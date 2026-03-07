@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: finix-ultimate
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/investment_app
+    username: root
+    password: Parc1234!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8082
