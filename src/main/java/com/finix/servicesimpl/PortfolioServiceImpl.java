@@ -55,8 +55,28 @@ public class PortfolioServiceImpl implements PortfolioService{
 
 	@Override
 	public PortfolioDTO update(Long id, PortfolioEntity portfolio) {
-		// TODO Auto-generated method stub
-		return null;
+	    PortfolioEntity existingPortfolio = this.portfolioRepository.findById(id)
+	            .orElseThrow(() -> new EntityNotFoundException("The portfolio with id " + id + " doesn't exist"));
+
+	    if (portfolio.getPortfolioName() != null) {
+	        existingPortfolio.setPortfolioName(portfolio.getPortfolioName());
+	    }
+
+	    if (portfolio.getCurrency() != null) {
+	        existingPortfolio.setCurrency(portfolio.getCurrency());
+	    }
+
+	    if (portfolio.getCashBalance() != 0) {
+	        existingPortfolio.setCashBalance(portfolio.getCashBalance());
+	    }
+
+	    if (portfolio.getUser() != null) {
+	        existingPortfolio.setUser(portfolio.getUser());
+	    }
+
+	    PortfolioEntity savedPortfolio = this.portfolioRepository.save(existingPortfolio);
+
+	    return PortfolioDTO.toDTO(savedPortfolio);
 	}
 
 	@Override
