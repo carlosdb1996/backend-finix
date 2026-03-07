@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +27,10 @@ public class UserEntity {
 	
 	private String username;
 	private String email;
+	
+	@Column(name = "password_hash")
 	private String password;
+	
 	private LocalDateTime created_at;
 
 	@JsonManagedReference(value = "user-portfolio") // JsonManaged nos permitirá ver la orderList en el JSON cuando
@@ -38,7 +42,7 @@ public class UserEntity {
 	
 	
 	public void addPortfolio(PortfolioEntity portfolio) {
-		this.addPortfolio(portfolio);
+		this.portfolios.add(portfolio);
 		portfolio.setUser(this);
 	}
 	public void removePortfolio(PortfolioEntity portfolio) {

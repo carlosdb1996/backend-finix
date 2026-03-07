@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.finix.dtos.UserDTO;
 import com.finix.entities.UserEntity;
@@ -16,6 +17,7 @@ import com.finix.services.UserService;
 
 import jakarta.persistence.EntityNotFoundException;
 
+@Service
 public class UserServicesImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;

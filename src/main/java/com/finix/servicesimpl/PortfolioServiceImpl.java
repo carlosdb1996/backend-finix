@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.finix.dtos.PortfolioDTO;
 import com.finix.entities.PortfolioEntity;
 import com.finix.entities.UserEntity;
@@ -13,10 +16,11 @@ import com.finix.services.PortfolioService;
 
 import jakarta.persistence.EntityNotFoundException;
 
+@Service
 public class PortfolioServiceImpl implements PortfolioService{
-	
+	@Autowired
 	UserRepository userRepository;
-	
+	@Autowired
 	PortfolioRepository portfolioRepository;
 
 	@Override

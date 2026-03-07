@@ -35,10 +35,16 @@ public class UserController {
 		return ResponseEntity.ok(this.userService.findAll());
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDTO> findByID(@PathVariable Long id) {
+		return ResponseEntity.ok(this.userService.findByID(id));
+	}
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<UserDTO> updatedByID(@PathVariable Long id, @RequestBody UserEntity user) {
 		return ResponseEntity.ok(this.userService.update(id, user));
 	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		boolean isEliminated = this.userService.delete(id);

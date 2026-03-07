@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.finix.entities.PortfolioEntity;
 import com.finix.entities.UserEntity;
 
@@ -11,7 +12,10 @@ public class UserDTO {
 	private Long id;
 	private String username;
 	private String email;
+	
+	@JsonIgnore
 	private String password;
+	
 	private LocalDateTime created_at;
 	private List<PortfolioDTO> portfolios = new ArrayList<PortfolioDTO>();
 	
