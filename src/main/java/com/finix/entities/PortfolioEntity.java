@@ -1,16 +1,22 @@
 package com.finix.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +30,12 @@ public class PortfolioEntity {
 	@JoinColumn(name = "user_id", nullable = true)
 	@JsonBackReference(value = "user-portfolio")
 	private UserEntity user;
+	
+	@JsonManagedReference(value="portfolio-investment") // JsonManaged nos permitirá ver la orderList en el JSON cuando hagamos peticiones GET
+	@OneToMany(mappedBy = "portfolio",
+			cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY) // para que solo cargue orders cuando accedamos a ellos (mejora el rendimiento).
+	private List<InvestmentEntity> investments = new ArrayList<InvestmentEntity>();
 	
 	@Column(name = "name")
 	private String portfolioName;
@@ -70,6 +82,12 @@ public class PortfolioEntity {
 	}
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
+	}
+	public List<InvestmentEntity> getInvestments() {
+		return investments;
+	}
+	public void setInvestments(List<InvestmentEntity> investments) {
+		this.investments = investments;
 	}
 	
 	
