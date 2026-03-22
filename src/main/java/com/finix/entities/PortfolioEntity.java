@@ -37,6 +37,12 @@ public class PortfolioEntity {
 			fetch = FetchType.LAZY) // para que solo cargue orders cuando accedamos a ellos (mejora el rendimiento).
 	private List<InvestmentEntity> investments = new ArrayList<InvestmentEntity>();
 	
+	@JsonManagedReference(value="portfolio-transaction") // JsonManaged nos permitirá ver la orderList en el JSON cuando hagamos peticiones GET
+	@OneToMany(mappedBy = "portfolio",
+			cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY) // para que solo cargue orders cuando accedamos a ellos (mejora el rendimiento).
+	private List<TransactionsEntity> transactions = new ArrayList<TransactionsEntity>();
+	
 	@Column(name = "name")
 	private String portfolioName;
 	
@@ -46,6 +52,26 @@ public class PortfolioEntity {
 	private double cashBalance;
 	
 	private LocalDateTime created_at;
+	
+	public void addTransaction(TransactionsEntity transaction) {
+		this.transactions.add(transaction);
+		transaction.setPortfolio(this);
+	}
+	
+	public void removeTransaction(TransactionsEntity transaction) {
+		this.transactions.remove(transaction);
+		transaction.setPortfolio(null);
+	}
+	
+	public void addInvestment(InvestmentEntity investment) {
+		this.investments.add(investment);
+		investment.setPortfolio(this);
+	}
+	
+	public void removeInvestment(InvestmentEntity investment) {
+		this.investments.remove(investment);
+		investment.setPortfolio(null);
+	}
 	
 	public Long getId() {
 		return id;
